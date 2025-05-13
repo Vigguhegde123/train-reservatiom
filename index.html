@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reservation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Make a Reservation</h2>
+    <form id="reservationForm">
+        <input type="text" id="name" placeholder="Your Name" required><br>
+        <input type="text" id="train" placeholder="Train Number" required><br>
+        <input type="date" id="date" required><br>
+        <button type="submit">Reserve</button>
+    </form>
+    <p id="confirmationMsg"></p>
+    <a href="/logout">Logout</a>
+
+    <script>
+        document.getElementById('reservationForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const train = document.getElementById('train').value;
+            const date = document.getElementById('date').value;
+
+            const response = await fetch('/reserve', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, train, date })
+            });
+
+            const result = await response.json();
+            const msgEl = document.getElementById('confirmationMsg');
+
+            msgEl.textContent = result.message;
+            msgEl.style.color = result.status === 'success' ? 'green' : 'red';
+        });
+    </script>
+</body>
+</html>
