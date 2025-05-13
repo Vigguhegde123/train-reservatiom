@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>Admin Dashboard</title></head>
+<body>
+<h2>Admin Dashboard</h2>
+<table border="1">
+    <tr>
+        <th>ID</th><th>Username</th><th>Train</th><th>Date</th>
+    </tr>
+    {% for r in reservations %}
+    <tr>
+        <td>{{ r[0] }}</td>
+        <td>{{ r[1] }}</td>
+        <td>{{ r[2] }}</td>
+        <td>{{ r[3] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="/logout">Logout</a>
+</body>
+</html>
